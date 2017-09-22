@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+
+    <contextName>components</contextName>
+
+    <property name="logPath" value="/usr/local/tomcat/logs/components/components" />
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>all</level>
+        </filter>
+        <encoder>
+            <pattern>%date{yyyy-MM-dd HH:mm:ss}||%thread||%level||%logger:%line||%msg %ex||%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="sfferr" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <File>${logPath}.err.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logPath}.err.log.%d{yyyy-MM-dd}</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date{yyyy-MM-dd HH:mm:ss}||%thread||%level||%logger:%line||%msg %ex||%n
+            </pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="sffInfo" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <File>${logPath}.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logPath}.log.%d{yyyy-MM-dd}</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date{yyyy-MM-dd HH:mm:ss}||%thread||%level||%logger:%line||%msg %ex||%n
+            </pattern>
+        </encoder>
+    </appender>
+
+
+
+    <!-- 将日志写入数据库 -->
+    <appender name="mysqlErr" class="ch.qos.logback.classic.db.DBAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <connectionSource class="ch.qos.logback.core.db.DataSourceConnectionSource">
+            <dataSource class="org.apache.commons.dbcp2.BasicDataSource">
+                <driverClassName>com.mysql.jdbc.Driver</driverClassName>
+                <url>jdbc:mysql://10.28.100.45:3306/components?characterEncoding=utf8&amp;allowMultiQueries=true&amp;useSSL=false&amp;autoReconnect=true&amp;failOverReadOnly=false</url>
+                <username>root</username>
+                <password>bbd123456</password>
+            </dataSource>
+        </connectionSource>
+    </appender>
+
+
+    <logger name="com.components" level="TRACE"  />
+    <logger name="org.springframework.data" level="TRACE"  />
+    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"  />
+
+
+    <appender name="asyncDb" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>10000</queueSize>
+        <appender-ref ref="mysqlErr" />
+    </appender>
+
+    <root level="debug">
+        <appender-ref ref="asyncDb"/>
+        <appender-ref ref="sfferr"/>
+        <appender-ref ref="sffInfo"/>
+        <appender-ref ref="console"/>
+    </root>
+
+
+</configuration>
