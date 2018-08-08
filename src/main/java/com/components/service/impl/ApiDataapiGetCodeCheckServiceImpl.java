@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 /**
- * @author yangjianhui
+ * @author Ian.Su
  */
 @Service("apiDataapiGetCodeCheckService")
 public class ApiDataapiGetCodeCheckServiceImpl  implements ApiDataCheckService , ApiAddressParamAssemblyInterface {

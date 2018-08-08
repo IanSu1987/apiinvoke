@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * 检查接口报错定时任务
- * Created by wish on 2017/7/18.
+ * Created by Ian.Su on 2017/7/18.
  */
 @Component
 public class CheckEventErrorScheduler {

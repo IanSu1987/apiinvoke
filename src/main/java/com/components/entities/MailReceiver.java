@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  * 接收系统通知邮箱
- * Created by wish on 2017/7/18.
+ * Created by Ian.Su on 2017/7/18.
  */
 @Entity
 @Table(name="mail_receiver")

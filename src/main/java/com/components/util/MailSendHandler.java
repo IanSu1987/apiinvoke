@@ -17,7 +17,7 @@ import java.io.File;
 
 /**
  * 邮件发送handler
- * Created by wish on 2017/7/18.
+ * Created by Ian.Su on 2017/7/18.
  */
 @Component
 public class MailSendHandler {
