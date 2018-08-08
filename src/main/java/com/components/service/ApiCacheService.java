@@ -1,5 +1,6 @@
 package com.components.service;
 
+import com.components.entities.CompCache;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.authentication.encoding.PlaintextPasswordEncoder;
 
@@ -23,8 +24,16 @@ public interface ApiCacheService {
      * @return Object 缓存中的数据
      *
      * */
-    Object get(String key);
+    CompCache getCompCache(String key);
 
+
+    /**
+     * 根据Key获得缓存中的数据
+     * @param key 缓存唯一值
+     * @return Object 缓存中的数据
+     *
+     * */
+    Object get(String key);
 
 
     /**

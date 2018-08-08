@@ -19,7 +19,7 @@ public class ApiException extends Exception {
 
 
     public ApiException(String message, Throwable cause) {
-        super(message, cause);
+        super(message + cause.getMessage() , cause);
         LOGGER.error(message,cause);
     }
 

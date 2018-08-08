@@ -5,6 +5,7 @@ import com.components.exception.ApiException;
 import java.util.Map;
 
 /**
+ * 参数检查接口
  * @author Ian.Su
  * @version $Id: ApiCheckParamService.java, v 0.1 2017/7/10 11:20 Ian.Su Exp $
  */

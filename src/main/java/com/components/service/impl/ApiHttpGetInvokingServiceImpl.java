@@ -45,7 +45,7 @@ public class ApiHttpGetInvokingServiceImpl implements ApiInvokingService,ApiAddr
 
         }catch (Exception e){
 
-            throw new ApiException(assembly(address, params) ,e);
+            throw new ApiException( assembly(address, params, e)  ,e);
 
         }
 

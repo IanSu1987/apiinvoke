@@ -25,7 +25,7 @@ public class CompCache implements Serializable {
     private String id;
 
 
-    @Column(columnDefinition = "text NOT NULL COMMENT '内容'")
+    @Column(columnDefinition = "longtext NOT NULL COMMENT '内容'")
     private String val;
 
 

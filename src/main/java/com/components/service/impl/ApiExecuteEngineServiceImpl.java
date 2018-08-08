@@ -1,17 +1,23 @@
 package com.components.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.components.dao.CompApiDao;
 import com.components.entities.CompApi;
+import com.components.entities.CompCache;
 import com.components.exception.ApiException;
 import com.components.mapper.CompApiMapper;
 import com.components.service.*;
+import com.components.util.ErrorMsg;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.Date;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -22,8 +28,9 @@ import java.util.concurrent.Executors;
  */
 @SuppressWarnings("ALL")
 @Service("defaultApiExecEngine")
-public class ApiExecuteEngineServiceImpl implements ApiExecuteEngineService {
+public class ApiExecuteEngineServiceImpl implements ApiExecuteEngineService , ApiAddressParamAssemblyInterface {
 
+    private Logger LOGGER = LoggerFactory.getLogger( getClass() );
 
     public final static ExecutorService cacheThread = Executors.newSingleThreadExecutor();
 
@@ -36,40 +43,72 @@ public class ApiExecuteEngineServiceImpl implements ApiExecuteEngineService {
     @Autowired
     protected CompApiMapper compApiMapper;
 
+    @Value("${components.api.re-invok.times:4}")
+    private int apiInvokTimes;
+
     @Override
     public Object execute(String apiId, Map<String, Object> externalParam) throws Exception {
 
-
-        //根据ID获取接口设置
         CompApi compApi = compApiMapper.get(apiId);
 
-
+        //根据ID获取接口设置
         if(compApi == null) throw new ApiException("ID为 "+ apiId + " 的接口配置不存在");
 
+        Object msg = null;
+
+        for ( int k = 1 ; k==1 || k <= apiInvokTimes ; k++ ){
+
+            if(k != 1){
+                synchronized (Thread.currentThread()){
+                    Thread.currentThread().wait(500 * k);
+                }
+            }
+
+            Object value = run(k , compApi,  externalParam);
+            if(value != null && !(value instanceof ErrorMsg)){
+                return value;
+            }
+            msg = value;
+
+        }
+
+        throw new ApiException(  msg.toString() );
+
+    }
+
+
+    public Object run(int counter,CompApi compApi, Map<String, Object> externalParam) throws Exception {
 
         //参数处理
         Map<String,Object> combineParams = paramCombinAndCheck(compApi , externalParam);
 
+        CompCache compCache = loadCacheDataCompCache(compApi, combineParams);
 
-        Object value = loadCacheData(compApi, combineParams);
-
-        if(value != null){
-            return value;
+        if(compCache != null && new Date().before(compCache.getValidDate()) ){
+            return JSONObject.parseObject(compCache.getVal());
         }
 
+        Object rawData = null;
+        Exception e = null;
+        try {
+            //执行请求
+            rawData = invoking(compApi, combineParams);
+            // 返回数据校验和处理
+            Object value = dataCheckAndProcessing( compApi ,  externalParam, combineParams ,  rawData );
+            // 缓存数据
+            cacheData(compApi , combineParams , value );
 
+            return value;
 
-        //执行请求
-        Object rawData = invoking(compApi, combineParams);
+        }catch (Exception ex){
+            e = ex;
+        }
 
+        if(compCache != null){
+            return JSONObject.parseObject(compCache.getVal());
+        }
 
-        // 返回数据校验和处理
-        value = dataCheckAndProcessing( compApi ,  externalParam, combineParams ,  rawData );
-
-        // 缓存数据
-        cacheData(compApi , combineParams , value );
-
-        return value;
+        return new ErrorMsg(e.getMessage());
     }
 
 
@@ -127,6 +166,31 @@ public class ApiExecuteEngineServiceImpl implements ApiExecuteEngineService {
 
     }
 
+
+
+    /**
+     * 执行数据请求
+     * */
+    protected CompCache loadCacheDataCompCache(CompApi compApi, Map<String,Object> combineParams){
+
+        if(!StringUtils.hasText(compApi.getCacheInterface())){
+            return null;
+        }
+
+        try {
+
+            ApiCacheService cacheService = applicationContext.getBean(compApi.getCacheInterface(), ApiCacheService.class);
+
+            String key = cacheService.encryptKey(compApi.getId(),combineParams.toString());
+
+            return cacheService.getCompCache(key);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
 
 
 

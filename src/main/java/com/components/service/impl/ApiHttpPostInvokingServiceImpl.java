@@ -53,7 +53,7 @@ public class ApiHttpPostInvokingServiceImpl implements ApiInvokingService , ApiA
 
         }catch (Exception e){
 
-            throw new ApiException(assembly(address, params) , e );
+            throw new ApiException(assembly(address, params,e) , e );
 
         }
 

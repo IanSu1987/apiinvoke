@@ -31,6 +31,11 @@ public class ApiMysqlCacheServiceImpl implements ApiCacheService {
 
 
     @Override
+    public CompCache getCompCache(String key) {
+        return cacheDao.findById(key).orElse(null);
+    }
+
+    @Override
     public Object get(String key) {
 
         String val = cacheMapper.getVal(key);
@@ -41,6 +46,9 @@ public class ApiMysqlCacheServiceImpl implements ApiCacheService {
 
         return JSONObject.parse(val);
     }
+
+
+
 
     @Override
     public void set(String key, Date validate , Object value) {
