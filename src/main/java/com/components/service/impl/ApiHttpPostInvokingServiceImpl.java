@@ -43,7 +43,7 @@ public class ApiHttpPostInvokingServiceImpl implements ApiInvokingService , ApiA
                 }
             }
 
-            LOGGER.warn( assembly(address, params) );
+            LOGGER.info( assembly(address, params) );
 
             Request request = Request.Post(address)
                     .addHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8")
