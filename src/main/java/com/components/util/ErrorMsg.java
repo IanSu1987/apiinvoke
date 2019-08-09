@@ -10,10 +10,10 @@ public class ErrorMsg {
     private String msg;
 
 
-    public ErrorMsg() {
+    public ErrorMsg(){
     }
 
-    public ErrorMsg(String msg) {
+    public ErrorMsg(String msg){
         setMsg(msg);
     }
 
@@ -27,7 +27,7 @@ public class ErrorMsg {
     }
 
     @Override
-    public String toString() {
+    public String toString(){
         return getMsg();
     }
 }

@@ -14,19 +14,20 @@ import java.util.Map;
  * @version $Id: ApiDataapiDataCheckServiceImpl.java, v 0.1 2017/7/10 15:58 Ian.Su Exp $
  */
 @Service("responseBeanDataCheckService")
-public class ApiResponseBeanDataCheckServiceImpl implements ApiDataCheckService, ApiAddressParamAssemblyInterface {
+public class ApiResponseBeanDataCheckServiceImpl implements ApiDataCheckService , ApiAddressParamAssemblyInterface {
+
 
 
     @Override
     public boolean checkData(String address, Map<String, Object> params, Object value) throws Exception {
 
-        JSONObject object = (JSONObject) JSONObject.parse(value.toString());
+        JSONObject object = (JSONObject)JSONObject.parse(value.toString());
 
-        if (object.containsKey("success") && "true".equals(String.valueOf(object.get("success")))) {
+        if(object.containsKey("success") && "true".equals(String.valueOf(object.get("success"))) ){
             return true;
         }
 
-        String msg = assembly(address, params, value);
+        String msg = assembly(address,  params,  value);
 
         throw new ApiException(msg);
 

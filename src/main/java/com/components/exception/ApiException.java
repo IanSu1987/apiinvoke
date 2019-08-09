@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ApiException extends Exception {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(ApiException.class);
+    private  static Logger LOGGER = LoggerFactory.getLogger(ApiException.class);
 
 
     public ApiException(String message) {
@@ -19,9 +19,12 @@ public class ApiException extends Exception {
 
 
     public ApiException(String message, Throwable cause) {
-        super(message + cause.getMessage(), cause);
-        LOGGER.error(message, cause);
+        super(message + cause.getMessage() , cause);
+        LOGGER.error(message,cause);
     }
+
+
+
 
 
 }

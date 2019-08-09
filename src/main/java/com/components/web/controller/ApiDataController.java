@@ -42,19 +42,20 @@ public class ApiDataController {
     private ApiCompService apiCompService;
 
 
-    @ApiOperation(value = "查看接口文档", notes = "根据document_address获取数据，其他的参考参实际接口文档")
+    @ApiOperation(value = "查看接口文档",notes = "根据document_address获取数据，其他的参考参实际接口文档")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "document_address",
-                    paramType = "query",
-                    value = "查看接口文档的字段",
-                    required = true,
-                    dataType = "String")
+                              paramType = "query",
+                              value = "查看接口文档的字段",
+                              required = true ,
+                              dataType = "String" )
     })
-    @RequestMapping(value = {"/documentAddress", "/documentAddress.do"}, method = {RequestMethod.POST, RequestMethod.GET})
-    public Object finddocumentAddress() {
+    @RequestMapping(value = {"/documentAddress","/documentAddress.do"},method = {RequestMethod.POST,RequestMethod.GET})
+    public Object finddocumentAddress (){
 
         return apiCompService.finddocumentAddress();
     }
+
 
 
     @ApiOperation(value = "接口调用", notes = "根据apiID获取数据，其他的参数参考实际接口文档")
@@ -65,12 +66,12 @@ public class ApiDataController {
                     required = true,
                     dataType = "String")
     })
-    @RequestMapping(value = {"/data", "/data.do"}, method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = {"/data" , "/data.do"},method = {RequestMethod.POST,RequestMethod.GET})
     public Object getApiData(@RequestParam String apiId, HttpServletRequest request) throws Exception {
 
-        Map<String, Object> externalParam = requestParam(request);
+        Map<String,Object> externalParam = requestParam(request);
 
-        return defaultApiExecEngine.execute(apiId, externalParam);
+        return defaultApiExecEngine.execute(apiId , externalParam );
 
     }
 
@@ -83,31 +84,32 @@ public class ApiDataController {
                     required = true,
                     dataType = "String")
     })
-    @RequestMapping(path = {"/test", "/test.do"}, method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(path = {"/test","/test.do"},method = {RequestMethod.POST,RequestMethod.GET})
     public Object apiTest(@RequestParam String apiId, HttpServletRequest request) throws Exception {
 
-        Map<String, Object> externalParam = requestParam(request);
+        Map<String,Object> externalParam = requestParam(request);
 
-        return testApiExecEngine.execute(apiId, externalParam);
+        return testApiExecEngine.execute(apiId , externalParam );
 
     }
 
 
     /**
      * 获取 request 中的参数
-     */
-    private Map<String, Object> requestParam(HttpServletRequest request) {
+     *
+     * */
+    private Map<String,Object> requestParam(HttpServletRequest request){
 
-        Map<String, String[]> params = request.getParameterMap();
+        Map<String,String[]> params = request.getParameterMap();
 
         Iterator<Map.Entry<String, String[]>> it = params.entrySet().iterator();
 
-        Map<String, Object> externalParam = new HashMap<>();
+        Map<String,Object> externalParam = new HashMap<>();
 
-        while (it.hasNext()) {
+        while(it.hasNext()){
             Map.Entry<String, String[]> entry = it.next();
-            String[] vals = entry.getValue();
-            externalParam.put(entry.getKey(), StringUtils.arrayToDelimitedString(vals, ","));
+            String [] vals = entry.getValue();
+            externalParam.put(entry.getKey() ,StringUtils.arrayToDelimitedString(vals,","));
         }
 
         return externalParam;
@@ -115,12 +117,20 @@ public class ApiDataController {
 
 
     @ApiOperation(value = "接口调用", notes = "根据apiID获取数据，其他的参数参考实际接口文档")
-    @RequestMapping(path = {"/data/{apiId}.do", "/data/{apiId}"}, method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(path = {"/data/by/map/{apiId}.do","/data/by/map/{apiId}"},method = {RequestMethod.POST,RequestMethod.GET})
+    public Object apiInvokeByMap(@PathVariable String apiId,@RequestBody Map<String,Object> paramMap) throws Exception {
+
+        return testApiExecEngine.execute(apiId , paramMap );
+
+    }
+
+    @ApiOperation(value = "接口调用", notes = "根据apiID获取数据，其他的参数参考实际接口文档")
+    @RequestMapping(path = {"/data/{apiId}.do","/data/{apiId}"},method = {RequestMethod.POST,RequestMethod.GET})
     public Object apiData(@PathVariable String apiId, HttpServletRequest request) throws Exception {
 
-        Map<String, Object> externalParam = requestParam(request);
+        Map<String,Object> externalParam = requestParam(request);
 
-        return testApiExecEngine.execute(apiId, externalParam);
+        return testApiExecEngine.execute(apiId , externalParam );
 
     }
 

@@ -21,7 +21,6 @@ import java.util.List;
 
 /**
  * 检查接口报错定时任务
- *
  * @author: GanZiB
  * Created by wish on 2017/7/18.
  */
@@ -59,18 +58,18 @@ public class CheckEventErrorScheduler {
     public void checkEventError() {
         logger.info("开始检查错误日志");
         //每次检查最近30分钟内的错误日志
-        int checkMinute = 30;
+       	int checkMinute = 30;
 
         //最近30分钟内的访问第三方报错的日志
         List<LoggingEvent> apiErrorEventList = systemLogService.findApiErrorEventPeriod(checkMinute);
-        if (apiErrorEventList.size() >= Integer.valueOf(errorNumToSendMail)) {
+        if(apiErrorEventList.size() >= Integer.valueOf(errorNumToSendMail)) {
             //收件邮箱地址
             String[] to = getEmailTo();
-            if (to.length > 0) {
+            if(to.length > 0) {
                 //生成邮件内容
-                String content = getEmailContent(checkMinute, apiErrorEventList);
+                String content = getEmailContent(checkMinute,apiErrorEventList);
                 //发送邮件
-                mailSendHandler.sendSimpleMail(to, "调用远程接口报错提醒", content);
+				mailSendHandler.sendSimpleMail(to,"调用远程接口报错提醒",content);
             }
         }
         logger.info("检查错误日志结束，{}分钟内出现了{}个错误", checkMinute, apiErrorEventList.size());
@@ -79,13 +78,12 @@ public class CheckEventErrorScheduler {
 
     /**
      * 获取收件邮箱地址
-     *
      * @return
      */
     private String[] getEmailTo() {
         List<MailReceiver> mailReceiverList = mailReceiverService.findAllMailReceivers();
         List<String> toList = new ArrayList<>();
-        if (!CollectionUtils.isEmpty(mailReceiverList)) {
+        if(!CollectionUtils.isEmpty(mailReceiverList)) {
             for (MailReceiver mailReceiver : mailReceiverList) {
                 toList.add(mailReceiver.getEmail());
             }
@@ -96,14 +94,13 @@ public class CheckEventErrorScheduler {
 
     /**
      * 生成邮件内容
-     *
-     * @param checkMinute       检查checkMinute分钟内的错误日志
+     * @param checkMinute 检查checkMinute分钟内的错误日志
      * @param apiErrorEventList 报错日志
      * @return
      */
     private String getEmailContent(int checkMinute, List<LoggingEvent> apiErrorEventList) {
 
-        if (CollectionUtils.isEmpty(apiErrorEventList)) {
+        if(CollectionUtils.isEmpty(apiErrorEventList)) {
             return "";
         }
 
@@ -120,8 +117,7 @@ public class CheckEventErrorScheduler {
 
     /**
      * 生成邮件内容头部
-     *
-     * @param checkMinute       检查checkMinute分钟内的错误日志
+     * @param checkMinute 检查checkMinute分钟内的错误日志
      * @param apiErrorEventList 报错日志
      * @return
      */
@@ -139,7 +135,6 @@ public class CheckEventErrorScheduler {
 
     /**
      * 生成邮件详情
-     *
      * @param apiErrorEventList 报错日志
      * @return
      */
@@ -147,12 +142,12 @@ public class CheckEventErrorScheduler {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         StringBuilder contentDetail = new StringBuilder();
         int total = maxEmailEventNum < apiErrorEventList.size() ? maxEmailEventNum : apiErrorEventList.size();
-        for (int i = 0; i < total; i++) {
+        for (int i = 0; i< total; i++) {
             LoggingEvent loggingEvent = apiErrorEventList.get(i);
             contentDetail.append(System.lineSeparator());
             contentDetail.append(System.lineSeparator());
             contentDetail.append(System.lineSeparator());
-            contentDetail.append("第" + (i + 1) + "次,详情:");
+            contentDetail.append("第"+(i+1)+"次,详情:");
             contentDetail.append("======================================================================");
             contentDetail.append(System.lineSeparator());
             contentDetail.append("异常时间:");
@@ -169,13 +164,12 @@ public class CheckEventErrorScheduler {
 
     /**
      * 生成邮件底部
-     *
      * @param apiErrorEventList 报错日志
      * @return
      */
     private String getEmailContentFooter(List<LoggingEvent> apiErrorEventList) {
-        StringBuilder contentFooter = new StringBuilder();
-        if (apiErrorEventList.size() > maxEmailEventNum) {
+        StringBuilder contentFooter= new StringBuilder();
+        if(apiErrorEventList.size() > maxEmailEventNum) {
             contentFooter.append(System.lineSeparator());
             contentFooter.append(System.lineSeparator());
             contentFooter.append("邮件仅展示");
@@ -185,9 +179,9 @@ public class CheckEventErrorScheduler {
         try {
             InetAddress addr = InetAddress.getLocalHost();
             //获取本机ip
-            String ip = addr.getHostAddress();
+            String ip=addr.getHostAddress();
             //获取本机计算机名称
-            String hostName = addr.getHostName();
+            String hostName=addr.getHostName();
 
             contentFooter.append(System.lineSeparator());
             contentFooter.append(System.lineSeparator());
@@ -195,7 +189,7 @@ public class CheckEventErrorScheduler {
             contentFooter.append(System.lineSeparator());
             contentFooter.append(System.lineSeparator());
             contentFooter.append("来自于计算机名称 :").append(hostName);
-            logger.info(String.valueOf(ip) + "" + String.valueOf(hostName));
+            logger.info(String.valueOf(ip)+""+String.valueOf(hostName));
         } catch (UnknownHostException e) {
             e.printStackTrace();
             logger.error(String.valueOf(e));

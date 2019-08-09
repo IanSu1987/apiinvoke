@@ -6,6 +6,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 
+
 /**
  * @author suyin
  */
@@ -14,7 +15,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableEurekaClient
 public class ComponentsApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(ComponentsApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(ComponentsApplication.class, args);
+	}
 }

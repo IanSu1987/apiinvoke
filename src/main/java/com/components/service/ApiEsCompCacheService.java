@@ -1,22 +1,21 @@
 package com.components.service;
 
-import com.components.entities.CompCache;
+import com.components.entities.EsCompCache;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
-import org.springframework.security.authentication.encoding.PlaintextPasswordEncoder;
 
 import javax.validation.constraints.NotNull;
 import java.util.Calendar;
 import java.util.Date;
 
 /**
+ * Created with IntelliJ IDEA.
+ * Description: 缓存接口
  *
- * 缓存接口
- *
- * @author Ian.Su
- * @version $Id: ApiCacheService.java, v 0.1 2017/7/11 11:20 Ian.Su Exp $
+ * @author: GanZiB
+ * Date: 2019-04-29
+ * Time: 18:46
  */
-public interface ApiCacheService {
-
+public interface ApiEsCompCacheService {
 
     /**
      * 根据Key获得缓存中的数据
@@ -24,7 +23,7 @@ public interface ApiCacheService {
      * @return Object 缓存中的数据
      *
      * */
-    CompCache getCompCache(String key);
+    EsCompCache getCompCache(String key);
 
 
     /**
@@ -37,25 +36,27 @@ public interface ApiCacheService {
 
 
     /**
-     *  根据Key获得缓存中的数据
-     *
-     * */
+     * 根据Key获得缓存中的数据
+     * @param key
+     * @param validate
+     * @param value
+     */
     void set(String key, Date validate, Object value);
-
 
 
     /**
      * 生成有效截止时间,默认为当天23:59:59
-     * */
+     * @return
+     */
     default Date validate(){
 
-       Calendar today = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
 
-       today.set(Calendar.HOUR_OF_DAY,23);
-       today.set(Calendar.MINUTE,59);
-       today.set(Calendar.SECOND,59);
+        today.set(Calendar.HOUR_OF_DAY,23);
+        today.set(Calendar.MINUTE,59);
+        today.set(Calendar.SECOND,59);
 
-       return today.getTime();
+        return today.getTime();
 
     }
 
@@ -87,5 +88,4 @@ public interface ApiCacheService {
         return preffix + "_" + pwd;
 
     }
-
 }

@@ -12,19 +12,19 @@ import java.util.Map;
  * @author yangjianhui
  */
 @Service("apiDataapiGetCodeCheckService")
-public class ApiDataapiGetCodeCheckServiceImpl implements ApiDataCheckService, ApiAddressParamAssemblyInterface {
-    @Override
-    public boolean checkData(String address, Map<String, Object> params, Object value) throws Exception {
+public class ApiDataapiGetCodeCheckServiceImpl  implements ApiDataCheckService , ApiAddressParamAssemblyInterface {
+	@Override
+	public boolean checkData(String address, Map<String, Object> params, Object value) throws Exception {
 
-        JSONObject jsonObject = (JSONObject) JSONObject.parse(value.toString());
+		JSONObject jsonObject = (JSONObject) JSONObject.parse(value.toString());
 
-        if ("0".equals(jsonObject.getString("code"))) {
+		if ("0".equals(jsonObject.getString("code"))) {
 
-            return true;
-        }
+			return  true;
+		}
 
-        String msg = assembly(address, params, value);
+		String msg = assembly(address , params , value);
 
-        throw new ApiException(msg);
-    }
+		throw new ApiException(msg);
+	}
 }

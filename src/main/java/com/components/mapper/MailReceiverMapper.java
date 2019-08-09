@@ -14,7 +14,6 @@ import java.util.List;
 public interface MailReceiverMapper {
     /**
      * 查询所有的邮件接收邮箱
-     *
      * @return
      */
     @Select("select id,email,remark,gmt_create gmtcreate,gmt_create gmtcreate from mail_receiver")

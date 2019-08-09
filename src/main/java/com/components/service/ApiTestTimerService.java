@@ -1,6 +1,8 @@
 package com.components.service;
 
 /**
+ *
+ *
  * api定时测试接口
  *
  * @author Ian.Su
@@ -9,8 +11,10 @@ package com.components.service;
 public interface ApiTestTimerService {
 
     /**
+     *
      * 定时测试
-     */
+     *
+     * */
     void timerExec();
 
 }

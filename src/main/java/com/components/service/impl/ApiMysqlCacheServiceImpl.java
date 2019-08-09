@@ -30,7 +30,7 @@ public class ApiMysqlCacheServiceImpl implements ApiCacheService {
     private CompCacheDao cacheDao;
 
     @Autowired
-    private CompCacheMapper cacheMapper;
+    private CompCacheMapper cacheMapper ;
 
 
     @Override
@@ -42,9 +42,9 @@ public class ApiMysqlCacheServiceImpl implements ApiCacheService {
     @Override
     public Object get(String key) {
 
-        CompCache val = getCompCache(key);
+        CompCache val = getCompCache( key);
 
-        if (val == null || !StringUtils.hasText(val.getVal())) {
+        if(val==null || !StringUtils.hasText(val.getVal())){
             return null;
         }
 
@@ -52,10 +52,12 @@ public class ApiMysqlCacheServiceImpl implements ApiCacheService {
     }
 
 
-    @Override
-    public void set(String key, Date validate, Object value) {
 
-        if (value == null) {
+
+    @Override
+    public void set(String key, Date validate , Object value) {
+
+        if(value == null ){
             return;
         }
 
@@ -70,6 +72,7 @@ public class ApiMysqlCacheServiceImpl implements ApiCacheService {
         cacheDao.save(cache);
 
     }
+
 
 
 }

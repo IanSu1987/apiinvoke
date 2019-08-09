@@ -23,7 +23,7 @@ public class ApiCompServiceImpl implements ApiCompService {
 
     @Override
     public CompApi get(String id) {
-        return compApiMapper.get(id);
+        return compApiMapper.get( id );
     }
 
     @Override

@@ -7,7 +7,6 @@ import com.components.service.ApiDataCheckService;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
-
 @Service("apiDataCodeCheckService")
 public class ApiDataCodeCheckServiceImpl implements ApiDataCheckService, ApiAddressParamAssemblyInterface {
     @Override
@@ -15,11 +14,11 @@ public class ApiDataCodeCheckServiceImpl implements ApiDataCheckService, ApiAddr
 
         JSONObject jsonObject = (JSONObject) JSONObject.parse(value.toString());
 
-        if ("1".equals(jsonObject.getString("code"))) {
+        if ("1".equals(jsonObject.getString("code"))){
             return true;
         }
 
-        String msg = assembly(address, params, value);
+        String msg = assembly(address , params , value);
 
         throw new ApiException(msg);
     }

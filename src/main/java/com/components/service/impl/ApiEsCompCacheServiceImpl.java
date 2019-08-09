@@ -1,9 +1,10 @@
 package com.components.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.components.entities.CompCache;
 import com.components.entities.EsCompCache;
 import com.components.repository.EsCompCacheRepository;
-import com.components.service.ApiCacheService;
+import com.components.service.ApiEsCompCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -21,7 +22,7 @@ import java.util.Optional;
  */
 @SuppressWarnings("ALL")
 @Service("esCacheService")
-public class ApiEsCompCacheServiceImpl implements ApiCacheService {
+public class ApiEsCompCacheServiceImpl implements ApiEsCompCacheService {
 
     @Autowired
     private EsCompCacheRepository compCacheRepository;
@@ -35,21 +36,21 @@ public class ApiEsCompCacheServiceImpl implements ApiCacheService {
     @Override
     public Object get(String key) {
         EsCompCache val = getCompCache(key);
-        if (val == null || !StringUtils.hasText(val.getVal())) {
+        if (val==null || !StringUtils.hasText(val.getVal())){
             return null;
         }
-        return JSONObject.parse(val.getVal());
+        return  JSONObject.parse(val.getVal());
     }
 
     @Override
     public void set(String key, Date validate, Object value) {
-        if (value == null) {
+        if(value == null ){
             return;
         }
         EsCompCache cache = new EsCompCache();
-        if (null != get(key)) {
+        if (null!=get(key)){
             cache.setGmtUpdate(new Date());
-        } else {
+        }else {
             cache.setGmtCreate(new Date());
         }
         cache.setId(key);

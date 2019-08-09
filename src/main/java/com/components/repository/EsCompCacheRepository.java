@@ -11,5 +11,5 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
  * Date: 2019-04-29
  * Time: 18:10
  */
-public interface EsCompCacheRepository extends ElasticsearchRepository<EsCompCache, String> {
+public interface EsCompCacheRepository extends ElasticsearchRepository<EsCompCache,String> {
 }

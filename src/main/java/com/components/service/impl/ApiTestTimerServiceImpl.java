@@ -51,27 +51,32 @@ public class ApiTestTimerServiceImpl implements ApiTestTimerService {
     public void timerExec() {
 
         Iterable<CompApi> it = apiDao.findAll();
-        it.forEach(api -> {
+        it.forEach(api->{
 
-            if (api.getTimerPoll() == null || api.getTimerPoll() < 1) {
-                return;
+            if(api.getTimerPoll() == null || api.getTimerPoll() < 1){
+                    return;
             }
 
             scheduledThreadPool.scheduleWithFixedDelay(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        LOGGER.debug("执行接口测试：{}", JSONObject.toJSONString(api));
-                        testEngineService.execute(api.getId(), null);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                        LOGGER.debug("执行接口测试：{}", JSONObject.toJSONString(api) );
+                        testEngineService.execute(api.getId(),null);
+                    }catch (Exception e){
+                       e.printStackTrace();
                     }
                 }
-            }, 10, api.getTimerPoll(), TimeUnit.SECONDS);
+            }, 10 ,api.getTimerPoll(), TimeUnit.SECONDS);
         });
 
 
+
+
+
     }
+
+
 
 
 }

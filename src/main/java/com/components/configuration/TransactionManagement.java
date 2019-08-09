@@ -26,9 +26,9 @@ import java.util.Map;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        entityManagerFactoryRef = "entityManagerFactory",
-        transactionManagerRef = "transactionManager",
-        basePackages = {"com.components.dao"}) //设置Repository所在位置
+        entityManagerFactoryRef="entityManagerFactory",
+        transactionManagerRef="transactionManager",
+        basePackages= { "com.components.dao"}) //设置Repository所在位置
 public class TransactionManagement {
 
     @Autowired
@@ -42,10 +42,10 @@ public class TransactionManagement {
 
     @Primary
     @Bean(name = "entityManagerFactory")
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryPrimary(EntityManagerFactoryBuilder builder) {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryPrimary (EntityManagerFactoryBuilder builder) {
         return builder
                 .dataSource(dataSource)
-                // .properties(getVendorProperties(dataSource))
+               // .properties(getVendorProperties(dataSource))
                 .packages("com.components.entities") //设置实体类所在位置
                 .persistenceUnit("persistenceUnit")
                 .build();
@@ -63,6 +63,7 @@ public class TransactionManagement {
     public PlatformTransactionManager transactionManagerPrimary(EntityManagerFactoryBuilder builder) {
         return new JpaTransactionManager(entityManagerFactoryPrimary(builder).getObject());
     }
+
 
 
 }

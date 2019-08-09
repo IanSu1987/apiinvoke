@@ -17,7 +17,7 @@ import java.util.Date;
  * Time: 17:56
  */
 @Document(indexName = "ra6.comp_cache", shards = 3, type = "comp_cache", replicas = 1)
-public class EsCompCache implements Serializable, CacheInterfaceEntity {
+public class EsCompCache implements Serializable {
     private static final long serialVersionUID = 3242773692258971120L;
 
     @Id
@@ -44,52 +44,42 @@ public class EsCompCache implements Serializable, CacheInterfaceEntity {
     @Field(type = FieldType.Date)
     private Date gmtUpdate;
 
-    @Override
     public String getId() {
         return id;
     }
 
-    @Override
     public void setId(String id) {
         this.id = id;
     }
 
-    @Override
     public String getVal() {
         return val;
     }
 
-    @Override
     public void setVal(String val) {
         this.val = val;
     }
 
-    @Override
     public Date getValidDate() {
         return validDate;
     }
 
-    @Override
     public void setValidDate(Date validDate) {
         this.validDate = validDate;
     }
 
-    @Override
     public Date getGmtCreate() {
         return gmtCreate;
     }
 
-    @Override
     public void setGmtCreate(Date gmtCreate) {
         this.gmtCreate = gmtCreate;
     }
 
-    @Override
     public Date getGmtUpdate() {
         return gmtUpdate;
     }
 
-    @Override
     public void setGmtUpdate(Date gmtUpdate) {
         this.gmtUpdate = gmtUpdate;
     }

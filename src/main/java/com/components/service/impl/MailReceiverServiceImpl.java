@@ -13,7 +13,7 @@ import java.util.List;
  */
 @SuppressWarnings("ALL")
 @Service
-public class MailReceiverServiceImpl implements MailReceiverService {
+public class MailReceiverServiceImpl implements MailReceiverService{
     @Autowired
     private MailReceiverMapper mailReceiverMapper;
 

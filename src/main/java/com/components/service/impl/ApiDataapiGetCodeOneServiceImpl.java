@@ -4,26 +4,24 @@ import com.alibaba.fastjson.JSONObject;
 import com.components.exception.ApiException;
 import com.components.service.ApiAddressParamAssemblyInterface;
 import com.components.service.ApiDataCheckService;
-
 import java.util.Map;
-
 import org.springframework.stereotype.Service;
 
 
 @Service("apiDataapiGetCodeOneService")
-public class ApiDataapiGetCodeOneServiceImpl implements ApiDataCheckService, ApiAddressParamAssemblyInterface {
-    @Override
-    public boolean checkData(String address, Map<String, Object> params, Object value) throws Exception {
+public class ApiDataapiGetCodeOneServiceImpl implements ApiDataCheckService , ApiAddressParamAssemblyInterface {
+	@Override
+	public boolean checkData(String address, Map<String, Object> params, Object value) throws Exception {
 
-        JSONObject jsonObject = (JSONObject) JSONObject.parse(value.toString());
+		JSONObject jsonObject = (JSONObject) JSONObject.parse(value.toString());
 
-        if ("1".equals(jsonObject.getString("code"))) {
+		if ("1".equals(jsonObject.getString("code"))) {
 
-            return true;
-        }
+			return  true;
+		}
 
-        String msg = assembly(address, params, value);
+		String msg = assembly(address , params , value);
 
-        throw new ApiException(msg);
-    }
+		throw new ApiException(msg);
+	}
 }

@@ -11,7 +11,6 @@ import java.util.List;
 public interface MailReceiverService {
     /**
      * 查询所有的邮件接收邮箱
-     *
      * @return
      */
     List<MailReceiver> findAllMailReceivers();

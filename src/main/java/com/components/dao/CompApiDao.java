@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface CompApiDao extends PagingAndSortingRepository<CompApi, String> {
+public interface CompApiDao extends PagingAndSortingRepository <CompApi , String> {
 
 }

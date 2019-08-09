@@ -13,14 +13,14 @@ import java.util.Map;
  * @version $Id: ApiDataapiDataCheckServiceImpl.java, v 0.1 2017/7/10 15:58 Ian.Su Exp $
  */
 @Service("dataapiDataCheckErrorCodeService")
-public class ApiDataapiDataCheckErrorCodeServiceImpl implements ApiDataCheckService, ApiAddressParamAssemblyInterface {
+public class ApiDataapiDataCheckErrorCodeServiceImpl implements ApiDataCheckService , ApiAddressParamAssemblyInterface {
 
     @Override
     public boolean checkData(String address, Map<String, Object> params, Object value) throws Exception {
 
-        JSONObject object = (JSONObject) JSONObject.parse(value.toString());
+        JSONObject object = (JSONObject)JSONObject.parse(value.toString());
 
-        if (object.containsKey("error_code") && "0".equals("" + object.get("error_code"))) {
+       if(object.containsKey("error_code") && "0".equals(""+object.get("error_code"))){
             return true;
         }
 
