@@ -25,51 +25,48 @@ public class SystemLogServiceImpl implements SystemLogService {
     private SystemLogMapper logMapper;
 
     @Override
-    public List<Map<String,Object>> queryLogEvent(Long start, Long end, Long day , Integer limitStart, Integer limitSize) {
+    public List<Map<String, Object>> queryLogEvent(Long start, Long end, Long day, Integer limitStart, Integer limitSize) {
 
-        String [] p = {"yyyyMMddHHmmss","yyyyMMddHHmm","yyyyMMddHH","yyyyMMdd"};
+        String[] p = {"yyyyMMddHHmmss", "yyyyMMddHHmm", "yyyyMMddHH", "yyyyMMdd"};
 
-        if(start != null){
-            start = DateUtils.parseDate(start+"",p).getTime();
+        if (start != null) {
+            start = DateUtils.parseDate(start + "", p).getTime();
         }
 
-        if(end != null){
-            end = DateUtils.parseDate(end+"",p).getTime();
+        if (end != null) {
+            end = DateUtils.parseDate(end + "", p).getTime();
         }
 
-        if(start == null && end == null && day==null){
+        if (start == null && end == null && day == null) {
             start = 0L;
             end = 999999999999999L;
         }
 
 
-        if(day != null ){
+        if (day != null) {
 
-            start = DateUtils.parseDate(day+"000000",p).getTime();
-            end = DateUtils.parseDate((day+1)+"000000",p).getTime();
+            start = DateUtils.parseDate(day + "000000", p).getTime();
+            end = DateUtils.parseDate((day + 1) + "000000", p).getTime();
 
         }
 
 
-
-        return logMapper.queryLogEvent(start , end , limitStart , limitSize );
+        return logMapper.queryLogEvent(start, end, limitStart, limitSize);
 
     }
-
-
 
 
     @Override
     public Map<String, Object> logDetail(long event_id) {
 
-        return logMapper.logDetail( event_id );
+        return logMapper.logDetail(event_id);
 
     }
 
 
     @Override
-    public List<Map<String,Object>> logExceptionDetail(long event_id){
-        return logMapper.logExceptionDetail( event_id );
+    public List<Map<String, Object>> logExceptionDetail(long event_id) {
+        return logMapper.logExceptionDetail(event_id);
     }
 
     @Override

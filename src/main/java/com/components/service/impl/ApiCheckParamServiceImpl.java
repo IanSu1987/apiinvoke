@@ -21,22 +21,22 @@ public class ApiCheckParamServiceImpl implements ApiCheckParamService {
     @Override
     public Map<String, Object> checkParam(Map<String, Object> sourceParam, String includeCheckJson) throws ApiException {
 
-        if(!StringUtils.hasText(includeCheckJson)){
+        if (!StringUtils.hasText(includeCheckJson)) {
             return sourceParam;
         }
 
         JSONObject includeObj = (JSONObject) JSONObject.parse(includeCheckJson);
-        if(!includeObj.containsKey("include")){
+        if (!includeObj.containsKey("include")) {
             return sourceParam;
         }
 
         JSONArray ary = (JSONArray) includeObj.get("include");
 
         Iterator<Object> it = ary.iterator();
-        while ( it.hasNext() ){
+        while (it.hasNext()) {
             Object key = it.next();
-            if(!sourceParam.containsKey(key)){
-                throw new ApiException("参数 "+key+" 为必传参数.");
+            if (!sourceParam.containsKey(key)) {
+                throw new ApiException("参数 " + key + " 为必传参数.");
             }
         }
 

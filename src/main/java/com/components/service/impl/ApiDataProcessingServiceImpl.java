@@ -16,7 +16,7 @@ public class ApiDataProcessingServiceImpl implements ApiDataProcessingService {
     @Override
     public Object processing(String address, Map<String, Object> externalParam, Map<String, Object> combineParams, Object rawData) {
 
-        return JSONObject.parse((String)rawData);
+        return JSONObject.parse((String) rawData);
 
     }
 }

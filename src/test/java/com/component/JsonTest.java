@@ -12,8 +12,7 @@ import java.util.Map;
 public class JsonTest {
 
 
-
-    public static void main(String [] agrs){
+    public static void main(String[] agrs) {
 
 //        Map<String,Object> a = new HashMap<>();
 //        a.put("a","bb");
@@ -28,9 +27,7 @@ public class JsonTest {
 //        System.out.println(JSONObject.parse(json).toString());
 
 
-          System.out.println( JSONObject.toJSON("abc") );
-
-
+        System.out.println(JSONObject.toJSON("abc"));
 
 
     }

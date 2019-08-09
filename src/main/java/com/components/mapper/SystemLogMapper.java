@@ -22,19 +22,19 @@ public interface SystemLogMapper {
             "  where timestmp >= #{start} and timestmp<=#{end} " +
             "  order by timestmp desc " +
             "  limit ${limitStart},${limitSize} ")
-    List<Map<String,Object>> queryLogEvent(@Param("start") Long start ,
-                                           @Param("end") Long end ,
-                                           @Param("limitStart") Integer limitStart,
-                                           @Param("limitSize") Integer limitSize);
+    List<Map<String, Object>> queryLogEvent(@Param("start") Long start,
+                                            @Param("end") Long end,
+                                            @Param("limitStart") Integer limitStart,
+                                            @Param("limitSize") Integer limitSize);
 
     @Select("  select FROM_UNIXTIME( a.timestmp/1000 ,'%Y-%m-%d %H:%i:%S' ) create_time , a.* " +
             "  from logging_event a " +
             "  where event_id = #{event_id} ")
-    Map<String,Object> logDetail(long event_id);
+    Map<String, Object> logDetail(long event_id);
 
 
     @Select(" select * from logging_event_exception where event_id=#{event_id} order by i ")
-    List<Map<String,Object>> logExceptionDetail(long event_id);
+    List<Map<String, Object>> logExceptionDetail(long event_id);
 
     @Select("select event_id eventid,arg0,arg1,arg2,arg3,caller_class callerclass,caller_filename callerclass,caller_line callerline,caller_method callermethod," +
             "formatted_message formattedmessage,level_string levelstring,logger_name loggername,reference_flag referenceflag,thread_name threadname,FROM_UNIXTIME(timestmp/1000) timestmp" +

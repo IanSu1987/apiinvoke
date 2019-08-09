@@ -9,22 +9,24 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 /**
- * @author yangjianhui
+ * @author Ian.Su
+ * @version $Id: ApiDataapiDataCheckServiceImpl.java, v 0.1 2017/7/10 15:58 Ian.Su Exp $
  */
-@Service("apiDataapiGetCodeCheckService")
-public class ApiDataapiGetCodeCheckServiceImpl implements ApiDataCheckService, ApiAddressParamAssemblyInterface {
+@Service("dataapiDataCheckErrorCodeService")
+public class ApiDataapiDataCheckErrorCodeServiceImpl implements ApiDataCheckService, ApiAddressParamAssemblyInterface {
+
     @Override
     public boolean checkData(String address, Map<String, Object> params, Object value) throws Exception {
 
-        JSONObject jsonObject = (JSONObject) JSONObject.parse(value.toString());
+        JSONObject object = (JSONObject) JSONObject.parse(value.toString());
 
-        if ("0".equals(jsonObject.getString("code"))) {
-
+        if (object.containsKey("error_code") && "0".equals("" + object.get("error_code"))) {
             return true;
         }
 
         String msg = assembly(address, params, value);
 
         throw new ApiException(msg);
+
     }
 }

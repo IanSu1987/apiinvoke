@@ -17,7 +17,7 @@ public interface CompApiMapper {
 
 
     @Select("select * from comp_api where id=#{id}")
-    CompApi get( String id );
+    CompApi get(String id);
 
     @Select("select * from comp_api")
     List<CompApi> finddocumentAddress();

@@ -9,11 +9,11 @@ import java.util.Date;
 
 /**
  * 接收系统通知邮箱
- * Created by Ian.Su on 2017/7/18.
+ * Created by wish on 2017/7/18.
  */
 @Entity
-@Table(name="mail_receiver")
-public class MailReceiver implements Serializable{
+@Table(name = "mail_receiver")
+public class MailReceiver implements Serializable {
 
     private static final long serialVersionUID = 24L;
 
@@ -21,16 +21,16 @@ public class MailReceiver implements Serializable{
     @Column(columnDefinition = "varchar(100) NOT NULL COMMENT 'PK'")
     private String id;
 
-    @Column(name="email",columnDefinition = "varchar(100) NOT NULL COMMENT '邮箱' ")
+    @Column(name = "email", columnDefinition = "varchar(100) NOT NULL COMMENT '邮箱' ")
     private String email;
 
-    @Column(name="remark",columnDefinition = "varchar(100) COMMENT '备注' ")
+    @Column(name = "remark", columnDefinition = "varchar(100) COMMENT '备注' ")
     private String remark;
 
-    @Column(name="gmt_create" ,columnDefinition = "timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '创建时间' ")
+    @Column(name = "gmt_create", insertable = false, updatable = false, columnDefinition = "timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '创建时间' ")
     private Date gmtCreate;
 
-    @Column(name="gmt_update" ,columnDefinition = "timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL COMMENT '修改时间' ")
+    @Column(name = "gmt_update", insertable = false, updatable = false, columnDefinition = "timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL COMMENT '修改时间' ")
     private Date gmtUpdate;
 
     public String getId() {

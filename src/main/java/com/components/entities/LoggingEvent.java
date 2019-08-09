@@ -5,58 +5,58 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name="logging_event")
+@Table(name = "logging_event")
 public class LoggingEvent implements Serializable {
 
     private static final long serialVersionUID = 24L;
 
     @Id
-    @Column(name="event_id",columnDefinition = "BIGINT AUTO_INCREMENT NOT NULL COMMENT 'PK'")
+    @Column(name = "event_id", columnDefinition = "BIGINT AUTO_INCREMENT NOT NULL COMMENT 'PK'")
     private Long eventId;
 
-    @Column(name="timestmp",columnDefinition = "BIGINT NOT NULL  COMMENT '生成时间'")
+    @Column(name = "timestmp", columnDefinition = "BIGINT NOT NULL  COMMENT '生成时间'")
     private Date timestmp;
 
-    @Column(name="formatted_message",columnDefinition = "LONGTEXT NOT NULL  COMMENT '日志信息内容'")
+    @Column(name = "formatted_message", columnDefinition = "LONGTEXT NOT NULL  COMMENT '日志信息内容'")
     private String formattedMessage;
 
-    @Column(name="logger_name",columnDefinition = "VARCHAR(254) NOT NULL  COMMENT '日志名称, 一般已产生的代码的信息命名 如：mavenDemos.TestLogback.Test'")
+    @Column(name = "logger_name", columnDefinition = "VARCHAR(254) NOT NULL  COMMENT '日志名称, 一般已产生的代码的信息命名 如：mavenDemos.TestLogback.Test'")
     private String loggerName;
 
-    @Column(name="level_string",columnDefinition = "VARCHAR(254) NOT NULL  COMMENT '日志级别 如：INFO,ERROR等'")
+    @Column(name = "level_string", columnDefinition = "VARCHAR(254) NOT NULL  COMMENT '日志级别 如：INFO,ERROR等'")
     private String levelString;
 
-    @Column(name="thread_name",columnDefinition = "VARCHAR(254)  COMMENT '线程名称  如：main'")
+    @Column(name = "thread_name", columnDefinition = "VARCHAR(254)  COMMENT '线程名称  如：main'")
     private String threadName;
 
-    @Column(name="reference_flag",columnDefinition = "SMALLINT")
+    @Column(name = "reference_flag", columnDefinition = "SMALLINT")
     private int referenceFlag;
 
-    @Column(name="arg0",columnDefinition = "VARCHAR(254)")
+    @Column(name = "arg0", columnDefinition = "VARCHAR(254)")
     private String arg0;
 
-    @Column(name="arg1",columnDefinition = "VARCHAR(254)")
+    @Column(name = "arg1", columnDefinition = "VARCHAR(254)")
     private String arg1;
 
-    @Column(name="arg2",columnDefinition = "VARCHAR(254)")
+    @Column(name = "arg2", columnDefinition = "VARCHAR(254)")
     private String arg2;
 
-    @Column(name="arg3",columnDefinition = "VARCHAR(254)")
+    @Column(name = "arg3", columnDefinition = "VARCHAR(254)")
     private String arg3;
 
-    @Column(name="caller_filename",columnDefinition = "VARCHAR(254) NOT NULL  COMMENT '产生日志的代码名称  如：Test.java'")
+    @Column(name = "caller_filename", columnDefinition = "VARCHAR(254) NOT NULL  COMMENT '产生日志的代码名称  如：Test.java'")
     private String callerFilename;
 
-    @Column(name="caller_class",columnDefinition = "VARCHAR(254) NOT NULL  COMMENT 'CLASS 名称 如：mavenDemos.TestLogback.Test'")
+    @Column(name = "caller_class", columnDefinition = "VARCHAR(254) NOT NULL  COMMENT 'CLASS 名称 如：mavenDemos.TestLogback.Test'")
     private String callerClass;
 
-    @Column(name="caller_method",columnDefinition = "VARCHAR(254) NOT NULL  COMMENT '产生日志的具体方法 如：main'")
+    @Column(name = "caller_method", columnDefinition = "VARCHAR(254) NOT NULL  COMMENT '产生日志的具体方法 如：main'")
     private String callerMethod;
 
-    @Column(name="caller_line",columnDefinition = "CHAR(4) NOT NULL  COMMENT '代码行数  如：25'")
+    @Column(name = "caller_line", columnDefinition = "CHAR(4) NOT NULL  COMMENT '代码行数  如：25'")
     private String callerLine;
 
-    @Column(name = "gmt_create",columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '日志产生时间'")
+    @Column(name = "gmt_create", insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '日志产生时间'")
     private Date gmtCreate;
 
     public Date getGmtCreate() {

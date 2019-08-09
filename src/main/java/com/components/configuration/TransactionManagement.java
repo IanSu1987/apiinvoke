@@ -26,9 +26,9 @@ import java.util.Map;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        entityManagerFactoryRef="entityManagerFactory",
-        transactionManagerRef="transactionManager",
-        basePackages= { "com.components.dao"}) //设置Repository所在位置
+        entityManagerFactoryRef = "entityManagerFactory",
+        transactionManagerRef = "transactionManager",
+        basePackages = {"com.components.dao"}) //设置Repository所在位置
 public class TransactionManagement {
 
     @Autowired
@@ -42,28 +42,27 @@ public class TransactionManagement {
 
     @Primary
     @Bean(name = "entityManagerFactory")
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryPrimary (EntityManagerFactoryBuilder builder) {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryPrimary(EntityManagerFactoryBuilder builder) {
         return builder
                 .dataSource(dataSource)
-                .properties(getVendorProperties(dataSource))
+                // .properties(getVendorProperties(dataSource))
                 .packages("com.components.entities") //设置实体类所在位置
                 .persistenceUnit("persistenceUnit")
                 .build();
     }
 
-    @Autowired
-    private JpaProperties jpaProperties;
-
-    private Map<String, String> getVendorProperties(DataSource dataSource) {
-        return jpaProperties.getHibernateProperties(dataSource);
-    }
+//    @Autowired
+//    private JpaProperties jpaProperties;
+//
+//    private Map<String, String> getVendorProperties(DataSource dataSource) {
+//        return jpaProperties.getHibernateProperties(dataSource);
+//    }
 
     @Primary
     @Bean(name = "transactionManager")
     public PlatformTransactionManager transactionManagerPrimary(EntityManagerFactoryBuilder builder) {
         return new JpaTransactionManager(entityManagerFactoryPrimary(builder).getObject());
     }
-
 
 
 }

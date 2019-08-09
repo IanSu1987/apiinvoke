@@ -16,14 +16,13 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * Created by Ian.Su on 2016/12/29.
+ * Created by huguoju on 2016/12/29.
  */
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
     /**
      * 可以定义多个组，比如本类中定义把test和demo区分开了 （访问页面就可以看到效果了）
-     *
      */
     @Bean
     public Docket testApi() {

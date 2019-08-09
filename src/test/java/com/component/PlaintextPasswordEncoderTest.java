@@ -9,11 +9,11 @@ import org.springframework.security.authentication.encoding.PlaintextPasswordEnc
  */
 public class PlaintextPasswordEncoderTest {
 
-    public static void main(String [] agrs){
+    public static void main(String[] agrs) {
 
         Md5PasswordEncoder a = new Md5PasswordEncoder();
 
-        System.out.println( a.encodePassword("fads","fd") );
+        System.out.println(a.encodePassword("fads", "fd"));
 
     }
 

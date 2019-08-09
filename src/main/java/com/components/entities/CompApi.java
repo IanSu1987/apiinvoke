@@ -11,14 +11,13 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- *
  * api 接口配置表
  *
  * @author Ian.Su
  * @version $Id: CompApi.java, v 0.1 2017/7/5 11:27 Ian.Su Exp $
  */
 @Entity
-@Table(name="comp_api")
+@Table(name = "comp_api")
 public class CompApi implements Serializable {
 
     private static final long serialVersionUID = 24L;
@@ -27,65 +26,64 @@ public class CompApi implements Serializable {
     @Column(columnDefinition = "varchar(100) NOT NULL COMMENT 'PK'")
     private String id;
 
-    @Column(name="timer_poll",columnDefinition = "int COMMENT '间隔测试时间,单位:秒' ")
+    @Column(name = "timer_poll", columnDefinition = "int COMMENT '间隔测试时间,单位:秒' ")
     private Integer timerPoll;
 
 
-    @Column(name="fix_param",columnDefinition = "varchar(1000) COMMENT '固定参数' ")
+    @Column(name = "fix_param", columnDefinition = "varchar(1000) COMMENT '固定参数' ")
     private String fixParam;
 
 
-    @Column(name="test_param",columnDefinition = "varchar(1000) COMMENT '测试参数' ")
+    @Column(name = "test_param", columnDefinition = "varchar(1000) COMMENT '测试参数' ")
     private String testParam;
 
 
-    @Column(name="external_param",columnDefinition = "varchar(200) COMMENT '外部参数,格式如:{\"exclude\":[\"a\",...]} 或  {\"include\":[\"a\",....]}' ")
+    @Column(name = "external_param", columnDefinition = "varchar(200) COMMENT '外部参数,格式如:{\"exclude\":[\"a\",...]} 或  {\"include\":[\"a\",....]}' ")
     private String externalParam;
 
 
-    @Column(name="combine_param_interface",columnDefinition = "varchar(200) NOT NULL COMMENT '参数组合接口' ")
+    @Column(name = "combine_param_interface", columnDefinition = "varchar(200) NOT NULL COMMENT '参数组合接口' ")
     private String combineParamInterface;
 
-    @Column(name="check_param_interface",columnDefinition = "varchar(200) COMMENT '参数校验接口' ")
+    @Column(name = "check_param_interface", columnDefinition = "varchar(200) COMMENT '参数校验接口' ")
     private String checkParamInterface;
 
 
-    @Column(name="api_url",columnDefinition = "varchar(500) NOT NULL COMMENT '远程接口地址' ")
+    @Column(name = "api_url", columnDefinition = "varchar(500) NOT NULL COMMENT '远程接口地址' ")
     private String apiUrl;
 
 
-    @Column(name="invoking_interface",columnDefinition = "varchar(500) NOT NULL COMMENT '接口调用服务' ")
+    @Column(name = "invoking_interface", columnDefinition = "varchar(500) NOT NULL COMMENT '接口调用服务' ")
     private String invokingInterface;
 
 
-    @Column(name="data_check_interface",columnDefinition = "varchar(500) NOT NULL COMMENT '数据校验服务' ")
+    @Column(name = "data_check_interface", columnDefinition = "varchar(500) NOT NULL COMMENT '数据校验服务' ")
     private String dataCheckInterface;
 
 
-    @Column(name="data_processing_interface",columnDefinition = "varchar(500) NOT NULL COMMENT '数据处理服务' ")
+    @Column(name = "data_processing_interface", columnDefinition = "varchar(500) NOT NULL COMMENT '数据处理服务' ")
     private String dataProcessingInterface;
 
-    @Column(name="exception_interface",columnDefinition = "varchar(200) NOT NULL COMMENT '异常处理服务' ")
+    @Column(name = "exception_interface", columnDefinition = "varchar(200) NOT NULL COMMENT '异常处理服务' ")
     private String exceptionInterface;
 
 
-    @Column(name="cache_interface",columnDefinition = "varchar(200) NOT NULL COMMENT '异常处理服务' ")
+    @Column(name = "cache_interface", columnDefinition = "varchar(200) NOT NULL COMMENT '异常处理服务' ")
     private String cacheInterface;
 
 
-    @Column(name="api_description",columnDefinition = "varchar(500) NOT NULL COMMENT 'api描述' ")
+    @Column(name = "api_description", columnDefinition = "varchar(500) NOT NULL COMMENT 'api描述' ")
     private String apiDescription;
 
-    @Column(name="gmt_create" ,columnDefinition = "timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '创建时间' ")
+    @Column(name = "gmt_create", insertable = false, updatable = false, columnDefinition = "timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '创建时间' ")
     private Date gmtCreate;
 
 
-    @Column(name="gmt_update" ,columnDefinition = "timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL COMMENT '修改时间' ")
+    @Column(name = "gmt_update", insertable = false, updatable = false, columnDefinition = "timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL COMMENT '修改时间' ")
     private Date gmtUpdate;
 
 
-
-    @Column(name = "document_address",columnDefinition = "varchar(500)  COMMENT ' 文档地址'")
+    @Column(name = "document_address", columnDefinition = "varchar(500)  COMMENT ' 文档地址'")
     private String documentAddress;
 
 

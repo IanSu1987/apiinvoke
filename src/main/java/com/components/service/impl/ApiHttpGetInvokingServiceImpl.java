@@ -16,7 +16,7 @@ import java.util.Map;
  * @version $Id: ApiHttGetInvokingService.java, v 0.1 2017/7/10 14:07 Ian.Su Exp $
  */
 @Service("apiHttpGettInvoking")
-public class ApiHttpGetInvokingServiceImpl implements ApiInvokingService,ApiAddressParamAssemblyInterface {
+public class ApiHttpGetInvokingServiceImpl implements ApiInvokingService, ApiAddressParamAssemblyInterface {
 
     private Logger LOGGER = LoggerFactory.getLogger(getClass());
 
@@ -30,25 +30,24 @@ public class ApiHttpGetInvokingServiceImpl implements ApiInvokingService,ApiAddr
             for (Map.Entry<String, Object> entry : params.entrySet()) {
 
                 urlParams.append(urlParams.length() == 0 ? "?" : "&")
-                        .append( entry.getKey() ).append("=")
+                        .append(entry.getKey()).append("=")
                         .append(URLEncoder.encode(entry.getValue().toString(), "utf8"));
             }
 
-            urlParams.insert(0,address);
+            urlParams.insert(0, address);
 
-            LOGGER.warn(urlParams.toString());
+            LOGGER.debug(urlParams.toString());
 
             Request request = Request.Get(urlParams.toString()).
                     addHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
 
             return request.execute().returnContent().asString();
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
-            throw new ApiException( assembly(address, params, e)  ,e);
+            throw new ApiException(assembly(address, params, e), e);
 
         }
-
 
 
     }

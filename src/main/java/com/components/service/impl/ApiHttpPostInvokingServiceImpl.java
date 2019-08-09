@@ -22,7 +22,7 @@ import java.util.Map;
  * @version $Id: ApiHttGetInvokingService.java, v 0.1 2017/7/10 14:07 Ian.Su Exp $
  */
 @Service("apiHttpPostInvoking")
-public class ApiHttpPostInvokingServiceImpl implements ApiInvokingService , ApiAddressParamAssemblyInterface {
+public class ApiHttpPostInvokingServiceImpl implements ApiInvokingService, ApiAddressParamAssemblyInterface {
 
     private Logger LOGGER = LoggerFactory.getLogger(getClass());
 
@@ -34,16 +34,16 @@ public class ApiHttpPostInvokingServiceImpl implements ApiInvokingService , ApiA
         try {
 
             List<BasicNameValuePair> nvps = new ArrayList<>();
-            if(!CollectionUtils.isEmpty(params)){
-                Iterator<Map.Entry<String,Object>> it = params.entrySet().iterator();
-                while (it.hasNext()){
+            if (!CollectionUtils.isEmpty(params)) {
+                Iterator<Map.Entry<String, Object>> it = params.entrySet().iterator();
+                while (it.hasNext()) {
                     Map.Entry entry = it.next();
-                    nvps.add( new BasicNameValuePair(entry.getKey().toString(),entry.getValue().toString()) );
-                    paramsStr.append(paramsStr.length()==0?"?":"&").append(entry.getKey()).append("=").append(entry.getValue());
+                    nvps.add(new BasicNameValuePair(entry.getKey().toString(), entry.getValue().toString()));
+                    paramsStr.append(paramsStr.length() == 0 ? "?" : "&").append(entry.getKey()).append("=").append(entry.getValue());
                 }
             }
 
-            LOGGER.warn( assembly(address, params) );
+            LOGGER.debug(assembly(address, params));
 
             Request request = Request.Post(address)
                     .addHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8")
@@ -51,12 +51,11 @@ public class ApiHttpPostInvokingServiceImpl implements ApiInvokingService , ApiA
 
             return request.execute().returnContent().asString();
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
-            throw new ApiException(assembly(address, params,e) , e );
+            throw new ApiException(assembly(address, params, e), e);
 
         }
-
 
 
     }

@@ -6,12 +6,13 @@ import com.components.entities.CompCache;
 import com.components.mapper.CompCacheMapper;
 import com.components.service.ApiCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.provider.PersistenceProvider;
+import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.persistence.EntityManager;
 import java.util.Date;
-import java.util.Optional;
-
 
 /**
  * @author Ian.Su
@@ -22,38 +23,39 @@ import java.util.Optional;
 public class ApiMysqlCacheServiceImpl implements ApiCacheService {
 
 
+    @Autowired
+    private EntityManager em;
 
     @Autowired
     private CompCacheDao cacheDao;
 
     @Autowired
-    private CompCacheMapper cacheMapper ;
+    private CompCacheMapper cacheMapper;
 
 
     @Override
     public CompCache getCompCache(String key) {
+
         return cacheDao.findById(key).orElse(null);
     }
 
     @Override
     public Object get(String key) {
 
-        String val = cacheMapper.getVal(key);
+        CompCache val = getCompCache(key);
 
-        if(!StringUtils.hasText(val)){
+        if (val == null || !StringUtils.hasText(val.getVal())) {
             return null;
         }
 
-        return JSONObject.parse(val);
+        return JSONObject.parse(val.getVal());
     }
 
 
-
-
     @Override
-    public void set(String key, Date validate , Object value) {
+    public void set(String key, Date validate, Object value) {
 
-        if(value == null ){
+        if (value == null) {
             return;
         }
 
@@ -67,9 +69,7 @@ public class ApiMysqlCacheServiceImpl implements ApiCacheService {
 
         cacheDao.save(cache);
 
-
     }
-
 
 
 }
