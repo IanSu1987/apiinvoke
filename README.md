@@ -12,7 +12,7 @@
 ![这里写图片描述](http://note.youdao.com/yws/public/resource/cd7aef06055279772d47aedeb8d6f5f7/xmlnote/9D1FE41C027442B1A1CD3DD32136DE21/8898)
     
 ## 3.代码说明
-    1.代码库地址： https://github.com/kevin1987/apiinvoke.git
+    1.代码库地址： https://github.com/IanSu1987/apiinvoke.git
     2.采用技术包括 mybatis、jpa、swagger2、springboot
     
 
